@@ -21,6 +21,19 @@ $stmt->execute(array(':name' => $name, ':email' => $email, ':age' => $age));
 * id cuối insert
 `echo $db->lastInsertId();`
 
+### INSERTing multiple rows
+```php
+$data = array(
+	array('name' => 'John', 'age' => 20),
+	array('name' => 'Doe', 'age' => 30)
+);
+
+$stmt = $db->prepare("INSERT INTO users (name, age) VALUES (?,?)");
+foreach ($data as $row) {
+	$stmt->execute(array($row['name'], $row['age']));
+}
+```
+
 ## update
 ```php
 $sql = "UPDATE users SET name=:name, age=:age, email=:email WHERE id=:id";
